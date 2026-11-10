@@ -1,0 +1,16 @@
+[project]
+name = "sumo-sim"
+version = "0.1.0"
+description = "MuJoCo sumo robot simulation testbed"
+requires-python = ">=3.10"
+dependencies = ["mujoco>=3.1", "numpy", "gymnasium", "imageio[ffmpeg]"]
+
+[tool.setuptools]
+packages = ["sumo_sim"]
+
+[tool.setuptools.package-data]
+sumo_sim = ["assets/*.xml"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

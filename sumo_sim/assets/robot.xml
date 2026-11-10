@@ -1,0 +1,31 @@
+<!-- Differential-drive sumo robot template. Body frame: x forward, y left,
+     z up, origin at footprint center at wheel-axle height.
+     Geom groups: 3 = chassis (visible to ToF rays), 1 = wheels/skids,
+     4 = ballast/markers (ignored by rays). -->
+<body name="${p}chassis" pos="$x $y $z" euler="0 0 $yaw">
+  <freejoint name="${p}root"/>
+  <geom name="${p}shell" type="box" size="$hx $hy $hz" pos="0 0 $cz" mass="$shell_mass"
+        rgba="$rgba" friction="$chassis_friction 0.005 0.0001" priority="0" group="3"/>
+  <geom name="${p}skid_front" type="sphere" size="$skid_r" pos="$skid_x 0 $skid_z" mass="$skid_mass"
+        friction="$skid_friction 0.005 0.0001" priority="1" group="1" rgba="0.7 0.7 0.7 1"/>
+  <geom name="${p}skid_rear" type="sphere" size="$skid_r" pos="-$skid_x 0 $skid_z" mass="$skid_mass"
+        friction="$skid_friction 0.005 0.0001" priority="1" group="1" rgba="0.7 0.7 0.7 1"/>
+  <geom name="${p}marker" type="box" size="0.015 0.06 0.002" pos="$marker_x 0 $marker_z" mass="0"
+        rgba="1 1 0 1" contype="0" conaffinity="0" group="4"/>
+  <site name="${p}imu" pos="0 0 $cz" size="0.005"/>
+  <body name="${p}ballast" pos="$bx $by $bz">
+    <inertial pos="0 0 0" mass="$ballast_mass" diaginertia="$bI $bI $bI"/>
+    <geom name="${p}ballast_vis" type="box" size="$bs $bs $bs" mass="0" contype="0" conaffinity="0"
+          rgba="0.9 0.6 0.1 0.6" group="4"/>
+  </body>
+  <body name="${p}wheel_left" pos="0 $wy 0">
+    <joint name="${p}wheel_left" type="hinge" axis="0 1 0" armature="$armature" damping="$damping"/>
+    <geom name="${p}wheel_left" type="cylinder" size="$wr $whw" euler="1.5707963 0 0" mass="$wheel_mass"
+          friction="$wheel_friction 0.005 0.0001" priority="1" group="1" rgba="0.1 0.1 0.1 1"/>
+  </body>
+  <body name="${p}wheel_right" pos="0 -$wy 0">
+    <joint name="${p}wheel_right" type="hinge" axis="0 1 0" armature="$armature" damping="$damping"/>
+    <geom name="${p}wheel_right" type="cylinder" size="$wr $whw" euler="1.5707963 0 0" mass="$wheel_mass"
+          friction="$wheel_friction 0.005 0.0001" priority="1" group="1" rgba="0.1 0.1 0.1 1"/>
+  </body>
+</body>
